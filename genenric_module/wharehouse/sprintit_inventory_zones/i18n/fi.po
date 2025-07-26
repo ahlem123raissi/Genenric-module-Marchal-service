@@ -1,0 +1,47 @@
+# Translation of Odoo Server.
+# This file contains the translation of the following modules:
+#	* sprintit_inventory_zones
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: Odoo Server 12.0+e\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2019-10-04 10:40+0000\n"
+"PO-Revision-Date: 2019-10-04 10:40+0000\n"
+"Last-Translator: <>\n"
+"Language-Team: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: \n"
+"Plural-Forms: \n"
+
+#. module: sprintit_inventory_zones
+#: model:ir.model,name:sprintit_inventory_zones.model_stock_inventory
+msgid "Inventory"
+msgstr "Varasto"
+
+#. module: sprintit_inventory_zones
+#: model:ir.model,name:sprintit_inventory_zones.model_stock_location
+msgid "Inventory Locations"
+msgstr "Inventaariopaikat"
+
+#. module: sprintit_inventory_zones
+#: model:ir.model.fields,field_description:sprintit_inventory_zones.field_stock_inventory__inventory_zone_id
+#: model:ir.model.fields,field_description:sprintit_inventory_zones.field_stock_inventory_zone__name
+#: model:ir.model.fields,field_description:sprintit_inventory_zones.field_stock_location__inventory_zone_id
+msgid "Inventory Zone"
+msgstr "Varastovyöhyke"
+
+#. module: sprintit_inventory_zones
+#: model:ir.actions.act_window,name:sprintit_inventory_zones.action_stock_location_inventory_zone
+#: model:ir.ui.menu,name:sprintit_inventory_zones.stock_inventory_zone_menu
+msgid "Inventory Zones"
+msgstr "Varastovyöhykkeet"
+
+#. module: sprintit_inventory_zones
+#: model:ir.model.fields,help:sprintit_inventory_zones.field_stock_inventory__inventory_zone_id
+#: model:ir.model.fields,help:sprintit_inventory_zones.field_stock_inventory_zone__name
+#: model:ir.model.fields,help:sprintit_inventory_zones.field_stock_location__inventory_zone_id
+msgid "Inventory location zones"
+msgstr "Varastovyöhykkeet"
+

@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+    <record id="stock_location_inventory_zone_form" model="ir.ui.view">
+        <field name="name">Inventory Location Zone</field>
+        <field name="model">stock.inventory.zone</field>
+        <field name="arch" type="xml">
+            <form>
+                <sheet>
+                    <group>
+                        <group colspan="2">
+                            <field name="name"/>
+                        </group>
+                    </group>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+    <record id="stock_location_inventory_zone_tree" model="ir.ui.view">
+        <field name="name">Inventory Location Zone</field>
+        <field name="model">stock.inventory.zone</field>
+        <field name="arch" type="xml">
+            <list>
+                <field name="name"/>
+            </list>
+        </field>
+    </record>
+
+    <record id="action_stock_location_inventory_zone" model="ir.actions.act_window">
+        <field name="name">Inventory Zones</field>
+        <field name="type">ir.actions.act_window</field>
+        <field name="res_model">stock.inventory.zone</field>
+        <field name="view_mode">list,form</field>
+    </record>
+
+    <!-- Stock Inventory Zone menu-->
+    <menuitem id="stock_inventory_zone_menu"
+              name="Inventory Zones"
+              parent="stock.menu_warehouse_config"
+              action="action_stock_location_inventory_zone"
+              sequence="2"/>
+
+</odoo>
