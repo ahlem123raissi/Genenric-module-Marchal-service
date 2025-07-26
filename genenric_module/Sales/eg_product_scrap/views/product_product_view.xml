@@ -1,0 +1,13 @@
+<odoo>
+    <record model="ir.ui.view" id="product_product_inherit_product_scrap_form_view">
+        <field name="name">product.product.inherit.product.scrap.form.view</field>
+        <field name="model">product.product</field>
+        <field name="inherit_id" ref="product.product_normal_form_view"/>
+        <field name="arch" type="xml">
+            <xpath expr="//header" position="inside">
+                <button name="%(eg_product_scrap.product_scrap_wizard_action)d" string="Scrap Product"
+                        type="action"/>
+            </xpath>
+        </field>
+    </record>
+</odoo>

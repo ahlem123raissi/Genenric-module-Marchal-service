@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    
+    <record id="report_sales_turnover" model="ir.actions.report">
+        <field name="name">Sales Turnover</field>
+        <field name="model">sale.order</field>
+        <field name="report_type">qweb-pdf</field>
+        <field name="report_name">bi_sales_turnover_report.sales_turnover_invoice</field>
+        <field name="report_file">bi_sales_turnover_report.sales_turnover_invoice</field>
+        <field name="binding_type">report</field>
+    </record>
+</odoo>

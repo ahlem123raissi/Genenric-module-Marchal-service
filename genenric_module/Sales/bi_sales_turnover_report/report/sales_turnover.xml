@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+    <template id="sales_turnover_invoice">
+        <t t-call="web.html_container">
+            <t t-call="web.external_layout">
+                <div class="page">
+                    <h1 style="text-align:center;">Sales Turnover Fluctuation</h1>
+                    <br/>
+                    <div class="row">
+                        <div class="col-6">
+                            <p>Start Date : <t t-esc="data.get('start_date')"/></p>
+                            <p>Discrepancy : <t t-esc="data.get('discrepancy')"/></p>
+                        </div>
+                        <div class="col-6">
+                            <p>End Date : <t t-esc="data.get('end_date')"/></p>
+                            <p>Turnover Limit : <t t-esc="data.get('turnover_limit')"/></p>
+                        </div>
+                    </div>
+                    <br/>
+                    <br/>
+                    <table class="table" style="border: 1px solid black">
+                        <thead>
+                            <tr>
+                                <th style="border: 1px solid black;text-align:center;" rowspan="3">No.</th>
+                                <th style="border: 1px solid black;text-align:center;" rowspan="3">Customer</th>
+                                <t t-foreach="date_ranges" t-as="date_range">
+                                    <th style="border: 1px solid black" colspan="2"><t t-esc="date_range[0]"/><br/><t t-esc="date_range[1]"/></th>
+                                </t>
+                            </tr>
+                            <tr>
+                                <t t-foreach="date_ranges" t-as="date_range">
+                                    <th style="border: 1px solid black">Sale</th>
+                                    <td style="border: 1px solid black">Discrepancy %</td>
+                                </t>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            
+                            <t t-set="number" t-value="1"/>
+                            <tr t-foreach="report_datas" t-as="report_data">
+                                <td style="border: 1px solid black" class="text-center"><t t-esc="number"/></td>
+                                <t t-set="number" t-value="number+1"/>
+                                <td style="border: 1px solid black" class="text-center"><t t-esc="report_data.name"/></td>
+                                <t t-foreach="report_datas[report_data]" t-as="date_range_data">
+                                    <td style="border: 1px solid black" class="text-left"><t t-esc="'%.2f'% report_datas[report_data][date_range_data][0]"/></td>
+                                    <td style="border: 1px solid black" class="text-left"><t t-esc="'%.2f'% report_datas[report_data][date_range_data][1]"/></td>
+                                </t>                                
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </t>
+        </t>
+    </template>
+</odoo>

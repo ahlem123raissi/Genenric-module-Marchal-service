@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="turnover_fluctuation_form" model="ir.ui.view">
+        <field name="name">ssales.turnover.fluctuation.form</field>
+        <field name="model">sales.turnover.fluctuation</field>
+        <field name="arch" type="xml">
+             <form>
+                <group>
+                	<group>
+                		<field name="start_date"/>
+                        <field name="discrepancy"/>
+                        <field name="calculation_type"/>
+                	</group>
+                    <group>
+                		<field name="end_date"/>
+                        <field name="turnover_limit"/>
+                        <field name="include_invoice_draft"/>
+                    </group>
+                </group>
+                <group>
+                    <field name="partner_ids"/>
+                </group>
+                <footer>
+                    <button name="create_report" string="Print" type="object"
+                    class="btn-primary"/>
+                    <button string="Cancel" class="btn-default" special="cancel"/>
+                </footer>
+            </form>
+        </field>
+    </record>
+
+    <record id="action_turnover_fluctuation" model="ir.actions.act_window">
+        <field name="name">Turnover Fluctuation</field>
+        <field name="type">ir.actions.act_window</field>
+        <field name="res_model">sales.turnover.fluctuation</field>
+        <field name="view_mode">form</field>
+        <field name="target">new</field>
+    </record>
+
+    <menuitem id="turnover_fluctuation_menu_root" name="Turnover Fluctuation" 
+              action="action_turnover_fluctuation" parent="sale.menu_sale_report" sequence="4"/>
+
+</odoo>

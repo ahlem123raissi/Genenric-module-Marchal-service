@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="action_report_lead_stock" model="ir.actions.report">
+        <field name="name">Lead Order Summary</field>
+        <field name="model">crm.lead</field>
+        <field name="report_type">qweb-html</field>
+        <field name="report_name">lead_stock_manager.report_lead_stock</field>
+        <field name="report_file">lead_stock_manager.report_lead_stock</field>
+        <field name="print_report_name">'Lead_Stock_Report_%s' % object.name</field>
+        <field name="binding_model_id" ref="model_crm_lead"/>
+        <field name="binding_type">report</field>
+    </record>
+
+    <template id="report_lead_stock">
+        <t t-call="web.html_container">
+            <t t-foreach="docs" t-as="doc">
+                <t t-call="web.external_layout">
+                    <div class="page">
+                        <h2>Lead Order Summary</h2>
+                        <p><strong>Lead:</strong> <t t-esc="doc.name"/></p>
+                        <t t-set="status_dict" t-value="dict(doc.fields_get()['stock_status']['selection'])"/>
+                        <p><strong>Status:</strong> <t t-esc="status_dict.get(doc.stock_status)"/></p>
+                        <p><strong>Sale Order:</strong> <t t-esc="doc.sale_order_id.name or 'None'"/></p>
+                        <p><strong>Purchase Orders:</strong></p>
+                        <ul>
+                            <t t-foreach="doc.purchase_order_ids" t-as="po">
+                                <li><t t-esc="po.name"/></li>
+                            </t>
+                        </ul>
+                    </div>
+                </t>
+            </t>
+        </t>
+    </template>
+
+</odoo>
