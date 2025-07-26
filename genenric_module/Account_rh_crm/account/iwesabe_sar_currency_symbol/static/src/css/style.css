@@ -1,0 +1,57 @@
+@font-face {
+    font-family: 'sr_symbol';
+    src:  url('../fonts/sr.eot?hc2hgv');
+    src:  url('../fonts/sr.eot?hc2hgv#iefix') format('embedded-opentype'),
+      url('../fonts/sr.ttf?hc2hgv') format('truetype'),
+      url('../fonts/sr.woff?hc2hgv') format('woff'),
+      url('../fonts/sr.svg?hc2hgv#sr') format('svg');
+
+  }
+  
+  
+  .icon-sr:before{
+    content: "\e900";
+    color: rgb(36, 36, 36);
+  }
+
+  #symbol_0{
+    font-family: 'sr_symbol', sans-serif;
+    font-style: normal;
+  }
+
+  .oe_currency_value,
+  *[class*="currency"],
+  *[id*="currency"],
+  *[name*="currency"],
+  *[data-type*="currency"],
+  *[data-name*="currency"] {
+      font-family: 'sr_symbol' !important;
+      font-style: normal !important;
+  }
+
+.page {
+    font-family: 'sr_symbol' sans-serif !important;
+}
+.header {
+    font-family: 'sr_symbol', sans-serif !important;
+} 
+.footer {
+    font-family: 'sr_symbol', sans-serif !important;
+}
+
+  
+/* [class*="monetary"] {
+    font-family: 'sr_symbol', sans-serif;
+    font-style: normal;
+}
+[class*="number"]{
+    font-family: 'sr_symbol', sans-serif;
+    font-style: normal;
+} */
+
+/* Apply font only to elements with class starting with o_list_number or o_list_monetary */
+
+
+  /* * {
+    font-family: 'sr_symbol';
+  } */

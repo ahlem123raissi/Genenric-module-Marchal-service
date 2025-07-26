@@ -1,0 +1,97 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+	<record id="view_advance_payment_list" model="ir.ui.view">
+		<field name="name">advance.payment.list</field>
+		<field name="model">advance.payment</field>
+		<field name="arch" type="xml">
+			<list string="Advance Payment">
+                <field name="name"/>
+                <field name="payment_type"/>
+                <field name="currency_id" column_invisible="1"/>
+                <field name="amount"/>
+                <field name="state" widget="badge" decoration-info="state == 'draft'" decoration-success="state == 'confirm'"/>
+            </list>
+        </field>
+    </record>
+
+    <record id="view_advance_payment_form" model="ir.ui.view">
+		<field name="name">advance.payment.form</field>
+		<field name="model">advance.payment</field>
+		<field name="arch" type="xml">
+			<form string="Advance Payment">
+                <header>
+                    <field name="move_ids" invisible="1" readonly="1" widget="many2many_tags"/>
+                    <button name="action_confirm" string="Confirm" class="oe_highlight" invisible="state == 'confirm'" type="object" />
+                    <field name="state" widget="statusbar" statusbar_visible="draft,confirm"/>
+                </header>
+                <sheet>
+                    <div name="button_box" class="oe_button_box">
+                        <button class="oe_stat_button" type="object" name="action_view_entries" icon="fa-book" invisible="count_moves == 0">
+                            <div class="o_stat_info">
+                                <span class="o_stat_text">Journal Entries</span>
+                            </div>
+                            <field name="count_moves" widget="statinfo" string="Journal Entries" invisible="2"/>
+                        </button>
+                    </div>
+					<div class="oe_title">
+					<label for="name"/>
+						<h1>
+							<field name="name" readonly="1"/>
+						</h1>
+					</div>
+                    <group>
+						<group>
+                            <field name="payment_type"  widget="radio" options="{'horizontal': True}" readonly="state != 'draft'" invisible="1"/>
+                            
+                            <field name="partner_id" context="{'default_is_company': True}" string="Customer" options="{'no_quick_create': True}" invisible="payment_type != 'customer'" readonly="state != 'draft'"/>
+                            <field name="partner_id" context="{'default_is_company': True}" string="Vendor" options="{'no_quick_create': True}" invisible="payment_type != 'supplier'" readonly="state != 'draft'"/>
+                            <label for="amount"/>
+                            <div name="amount_div" class="o_row">
+                                <field name="amount" readonly="state != 'draft'"/>
+                                <field name="currency_id" options="{'no_create': True, 'no_open': True}" required="1" readonly="state != 'draft'" groups="base.group_multi_currency"/>
+                            </div>
+                            <field name="tax_ids" widget="many2many_tags" invisible="payment_type == 'customer'" domain="[('type_tax_use','=','purchase')]" readonly="state != 'draft'"/>
+                            <field name="tax_ids" widget="many2many_tags" invisible="payment_type == 'supplier'" domain="[('type_tax_use','=','sale')]" readonly="state != 'draft'"/>
+                            <field name="amount_incl_tax"/>
+                        </group>
+                        <group>
+                            <field name="journal_id" required="1" readonly="state != 'draft'"/>
+                            <field name="company_id" readonly="1" force_save="1" options="{'no_quick_create': True, 'no_open':True}"/>
+                        </group>
+                    </group>
+                </sheet>
+                <chatter reload_on_attachment="True"/>
+            </form>
+        </field>
+    </record>
+
+    <record id="action_customer_advance_payment" model="ir.actions.act_window">
+		<field name="name">Advance Payments</field>
+		<field name="res_model">advance.payment</field>
+		<field name="view_id" ref="view_advance_payment_list"/>
+		<field name="view_mode">list,form</field>
+        <field name="context">{'default_payment_type':'customer'}</field>
+        <field name="domain">[('payment_type','=','customer')]</field>
+	</record>
+<!--     
+    <record id="action_supplier_advance_payment" model="ir.actions.act_window">
+		<field name="name">Advance Payments</field>
+		<field name="res_model">advance.payment</field>
+		<field name="view_id" ref="view_advance_payment_list"/>
+		<field name="view_mode">list,form</field>
+        <field name="context">{'default_payment_type':'supplier'}</field>
+        <field name="domain">[('payment_type','=','supplier')]</field>
+	</record> -->
+
+    <menuitem id="menu_customer_advance_payment"
+			name="Advance Payment"
+			parent="account.menu_finance_receivables"
+			action="action_customer_advance_payment"
+			/>
+
+    <!-- <menuitem id="menu_supplier_advance_payment"
+			name="Advance Payment"
+			parent="account.menu_finance_payables"
+			action="action_supplier_advance_payment"
+			/> -->
+</odoo>

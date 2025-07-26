@@ -1,0 +1,4 @@
+id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
+access_hr_leave_rule,hr.leave.rule,model_hr_leave_rule,,1,1,1,1
+
+

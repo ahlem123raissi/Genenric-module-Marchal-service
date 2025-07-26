@@ -1,0 +1,85 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <!-- View crm.lead.product.line View List -->
+    <record id="view_crm_lead_product_line_list" model="ir.ui.view">
+        <field name="name">view.crm.lead.product.line.list</field>
+        <field name="model">crm.lead.product.line</field>
+        <field name="arch" type="xml">
+            <list>
+                <field name="product_id"/>
+                <field name="quantity"/>
+            </list>
+        </field>
+    </record>
+
+    <!-- View crm.lead.product.line form -->
+    <record id="view_crm_lead_product_line_form" model="ir.ui.view">
+        <field name="name">view.crm.lead.product.line.form</field>
+        <field name="model">crm.lead.product.line</field>
+        <field name="arch" type="xml">
+            <form string="Crm Lead Product Line">
+                <sheet>
+                    <!-- <div class="oe_title">
+                        <label for="name"/>
+                        <h1>
+                            <field name="name" placeholder="Name..."/>
+                        </h1>
+                    </div> -->
+                    <group>
+                        <field name="product_id"/>
+                        <field name="quantity"/>
+                    </group>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+    <record id="view_crm_lead_form_inherit_products" model="ir.ui.view">
+        <field name="name">crm.lead.form.inherit.products</field>
+        <field name="model">crm.lead</field>
+        <field name="inherit_id" ref="crm.crm_lead_view_form"/>
+        <field name="arch" type="xml">
+            <xpath expr="//div[@class='d-flex']" position="before">
+                <group string="Primarily Interested Products">
+                    <field name="lead_product_line_ids" mode="list,form" context="{'default_lead_id': id}" string="">
+                        <list editable="bottom">
+                            <field name="product_id"/>
+                            <field name="quantity"/>
+                            <field name="list_price"/>
+                        </list>
+                    </field>
+                </group>
+            </xpath>
+        </field>
+    </record>
+
+    <!-- View crm.lead.product.line search -->
+    <record id="view_crm_lead_product_line_search" model="ir.ui.view">
+        <field name="name">view.crm.lead.product.line.search</field>
+        <field name="model">crm.lead.product.line</field>
+        <field name="arch" type="xml">
+            <search>
+                <!-- <group expand="1" string="Group By">
+                    <filter string="Name" name="name" domain="[]" context="{'group_by':'name'}"/>
+                </group> -->
+            </search>
+        </field>
+    </record>
+
+    <!-- Action crm.lead.product.line -->
+    <record id="action_crm_lead_product_line" model="ir.actions.act_window">
+        <field name="name">Crm Lead Product Line</field>
+        <field name="type">ir.actions.act_window</field>
+        <field name="res_model">crm.lead.product.line</field>
+        <field name="view_mode">list,form</field>
+        <field name="domain">[]</field>
+        <field name="context">{}</field>
+        <field name="help" type="html">
+            <p class="oe_view_nocontent_create">
+                There is no examples click here to add new Crm Lead Product Line.
+            </p>
+        </field>
+    </record>
+
+</odoo>

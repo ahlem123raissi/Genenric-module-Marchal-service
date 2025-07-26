@@ -1,0 +1,101 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    
+    <!-- View crm.lead form -->
+    <record id="view_crm_lead_stock_form" model="ir.ui.view">
+        <field name="name">view.crm.lead.stock.form</field>
+        <field name="model">crm.lead</field>
+        <field name="inherit_id" ref="crm.crm_lead_view_form"/>
+        <field name="arch" type="xml">
+            <xpath expr="//header" position="inside">
+                <button name="action_open_sale_order" 
+                        type="object" 
+                        string="Sale Order" 
+                        icon="fa-shopping-cart"
+                        class="oe_stat_button"
+                        invisible="not sale_order_id"/>
+                <button name="action_view_purchase_orders"
+                        type="object"
+                        string="Purchase Orders"
+                        icon="fa-truck"
+                        class="oe_stat_button"
+                        invisible="not sale_order_id or purchase_order_count == 0"/>
+            </xpath>
+            <xpath expr="//div[@name='button_box']" position="inside">
+                <!-- <button name="action_view_desired_products" 
+                        type="object"
+                        class="oe_stat_button" 
+                        icon="fa-cubes"
+                        invisible="not lead_product_line_ids">
+                    <span style='margin-right:5px;'/>
+                    <field name="stock_check_count" widget="statinfo" invisible="stock_status == 'purchase_order_created'"/>
+                </button> -->
+                <button name="action_view_desired_products" 
+                        type="object"
+                        class="oe_stat_button" 
+                        icon="fa-cubes"
+                        invisible="not lead_product_line_ids">    
+                    <span style='margin-right:5px;'/>
+                    <field name="stock_status" widget="statinfo"/>
+                </button>
+            </xpath>
+            <xpath expr="//div[@class='d-flex']" position="before">
+                <group string="Sales Order Automation">
+                    <field name="ready_for_order"/>
+                    <field name="sale_order_id" readonly="1"/>
+                </group>
+            </xpath>
+        </field>
+    </record>
+
+    <record id="view_crm_lead_stock_kanban" model="ir.ui.view">
+        <field name="name">view.crm.lead.stock.kanban</field>
+        <field name="model">crm.lead</field>
+        <field name="inherit_id" ref="crm.view_crm_lead_kanban"/>
+        <field name="arch" type="xml">
+            <xpath expr="//t[@t-name='card']" position="replace">
+                <t t-name="card">
+                    <div t-att-class="{
+                        'o_kanban_record o_kanban_global_click': True,
+                        'bg-success': record.stock_status.raw_value == 'sufficient',
+                        'bg-danger': record.stock_status.raw_value == 'restock_needed',
+                        'bg-warning': record.stock_status.raw_value == 'purchase_order_created',
+                    }">
+                        <field name="name" class="fw-bold fs-5"/>
+                        <div>
+                            <field name="contact_name"/></div>
+                        <field name="tag_ids" widget="many2many_tags" options="{'color_field': 'color'}"/>
+                        <div>
+                            <strong>Status: </strong>
+                            <field name="stock_status"/>
+                        </div>
+                        <footer class="pt-1 mt-0">
+                            <div class="d-flex mt-auto">
+                                <field name="priority" widget="priority" class="me-2"/>
+                                <field name="activity_ids" widget="kanban_activity"/>
+                                <field name="user_id" widget="many2one_avatar_user" domain="[('share', '=', False)]" class="ms-auto"/>
+                            </div>
+                        </footer>
+                    </div>
+                </t>
+            </xpath>
+        </field>
+    </record>
+
+    <record id="view_crm_lead_stock_search" model="ir.ui.view">
+        <field name="name">view.crm.lead.stock.search</field>
+        <field name="model">crm.lead</field>
+        <field name="inherit_id" ref="crm.view_crm_case_leads_filter"/>
+        <field name="arch" type="xml">
+            <xpath expr="//separator[2]" position="after">
+                <filter string="Leads with Sale Order" name="leads_with_so" domain="[('sale_order_id', '!=', False)]"/>       
+                <filter string="Leads Needing Restock" name="leads_needing_restock" domain="[('purchase_order_ids', '!=', False)]"/>
+                <separator/>
+                <filter string="Order Created" name="order_created" domain="[('order_created','=',True)]"/>
+                <filter string="Stock Needed" name="stock_needed" domain="[('stock_needed','=',True)]"/>
+                <separator/>
+            </xpath>
+        </field>
+    </record>
+
+</odoo>
